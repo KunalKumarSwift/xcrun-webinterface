@@ -52,7 +52,9 @@ function createWindow() {
 
 // Create window when app is ready
 app.whenReady().then(() => {
-  serverProcess = fork(path.join(__dirname, "server.js"));
+  serverProcess = fork(path.join(__dirname, "server.js"), [], {
+    execPath: process.execPath,
+  });
   serverProcess.on("message", (msg) => {
     console.log("[Server message]:", msg);
   });
