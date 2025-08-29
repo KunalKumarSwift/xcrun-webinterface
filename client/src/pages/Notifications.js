@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import {
-  Bell,
   Send,
   RefreshCw,
   Smartphone,

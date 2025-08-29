@@ -1,5 +1,8 @@
 const { contextBridge, ipcRenderer } = require("electron");
-
+const SERVER_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000" // Your Express server
+    : "http://localhost:3001"; // Same in production (you already use 3001)
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
 contextBridge.exposeInMainWorld("electronAPI", {
@@ -24,6 +27,19 @@ contextBridge.exposeInMainWorld("electronAPI", {
   // Notifications
   showNotification: (title, body) =>
     ipcRenderer.invoke("show-notification", title, body),
+  // NEW: Fetch any server API
+  fetchAPI: async (endpoint, options = {}) => {
+    try {
+      const res = await fetch(`${SERVER_URL}${endpoint}`, {
+        method: options.method || "GET",
+        headers: { "Content-Type": "application/json" },
+        body: options.body ? JSON.stringify(options.body) : undefined,
+      });
+      return await res.json();
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  },
 });
 
 // Handle window controls
@@ -34,9 +50,3 @@ ipcRenderer.on("window-minimized", () => {
 ipcRenderer.on("window-maximized", () => {
   // Handle window maximized event
 });
-
-
-
-
-
-

@@ -1,9 +1,9 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
 const path = require("path");
 const isDev = require("electron-is-dev");
-
+const { fork } = require("child_process");
 let mainWindow;
-
+let serverProcess;
 function createWindow() {
   // Create the browser window
   mainWindow = new BrowserWindow({
@@ -25,11 +25,12 @@ function createWindow() {
   // Load the app
   if (isDev) {
     // In development, load from React dev server
-    mainWindow.loadURL("http://localhost:3000");
-    mainWindow.webContents.openDevTools();
+    mainWindow.loadURL("http://localhost:3001");
+    //mainWindow.webContents.openDevTools();
   } else {
+    mainWindow.loadURL("http://localhost:3001");
     // In production, load the built React app
-    mainWindow.loadFile(path.join(__dirname, "client/build/index.html"));
+    //mainWindow.loadFile(path.join(__dirname, "client/build/index.html"));
   }
 
   // Show window when ready
@@ -50,12 +51,32 @@ function createWindow() {
 }
 
 // Create window when app is ready
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  serverProcess = fork(path.join(__dirname, "server.js"));
+  serverProcess.on("message", (msg) => {
+    console.log("[Server message]:", msg);
+  });
+
+  serverProcess.on("error", (err) => {
+    console.error("[Server error]:", err);
+  });
+
+  serverProcess.on("exit", (code) => {
+    console.log(`[Server exited with code ${code}]`);
+  });
+  createWindow();
+});
 
 // Quit when all windows are closed
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
+  }
+});
+
+app.on("quit", () => {
+  if (serverProcess) {
+    serverProcess.kill();
   }
 });
 
@@ -129,9 +150,3 @@ if (process.platform === "darwin") {
 
 const menu = Menu.buildFromTemplate(template);
 Menu.setApplicationMenu(menu);
-
-
-
-
-
-

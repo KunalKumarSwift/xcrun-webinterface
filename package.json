@@ -39,7 +39,7 @@
     "electron",
     "desktop"
   ],
-  "author": "Your Name",
+  "author": "Kunal Kumar",
   "license": "MIT",
   "main": "main.js",
   "build": {
