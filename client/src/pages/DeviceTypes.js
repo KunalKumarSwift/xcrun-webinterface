@@ -87,8 +87,10 @@ const DeviceTypes = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Device Types</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Device Types
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
             Available iOS Simulator device configurations
           </p>
         </div>
@@ -103,14 +105,16 @@ const DeviceTypes = () => {
 
       {/* Device Type Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100">
-              <Smartphone className="h-6 w-6 text-blue-600" />
+            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
+              <Smartphone className="h-6 w-6 text-blue-600 dark:text-blue-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">iPhone</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                iPhone
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {
                   deviceTypes.filter(
                     (dt) => getDeviceCategory(dt.name) === "iPhone"
@@ -120,14 +124,16 @@ const DeviceTypes = () => {
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-purple-100">
-              <Tablet className="h-6 w-6 text-purple-600" />
+            <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
+              <Tablet className="h-6 w-6 text-purple-600 dark:text-purple-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">iPad</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                iPad
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {
                   deviceTypes.filter(
                     (dt) => getDeviceCategory(dt.name) === "iPad"
@@ -137,14 +143,16 @@ const DeviceTypes = () => {
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-gray-100">
-              <div className="h-6 w-6 bg-gray-600 rounded"></div>
+            <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
+              <div className="h-6 w-6 bg-gray-600 dark:bg-gray-400 rounded"></div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Apple TV</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                Apple TV
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {
                   deviceTypes.filter(
                     (dt) => getDeviceCategory(dt.name) === "Apple TV"
@@ -154,14 +162,16 @@ const DeviceTypes = () => {
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-gray-100">
-              <div className="h-6 w-6 bg-gray-600 rounded-full"></div>
+            <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
+              <div className="h-6 w-6 bg-gray-600 dark:bg-gray-400 rounded-full"></div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Apple Watch</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                Apple Watch
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {
                   deviceTypes.filter(
                     (dt) => getDeviceCategory(dt.name) === "Apple Watch"
@@ -175,49 +185,55 @@ const DeviceTypes = () => {
 
       {/* Grouped Device Types */}
       {groupedDevices.map((group) => (
-        <div key={group.category} className="card">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+        <div
+          key={group.category}
+          className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
+        >
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
             {getDeviceIcon(group.category)}
             <span className="ml-2">{group.category} Devices</span>
           </h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Device Name
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Device Type ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Screen Size
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Resolution
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                 {group.devices.map((deviceType) => (
-                  <tr key={deviceType.id} className="hover:bg-gray-50">
+                  <tr
+                    key={deviceType.id}
+                    className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                  >
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         {deviceType.name}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-500 font-mono">
+                      <div className="text-sm text-gray-500 dark:text-gray-300 font-mono">
                         {deviceType.id}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 dark:text-gray-300">
                         {getScreenSize(deviceType.name)}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-600 dark:text-gray-300">
                         {getResolution(deviceType.name)}
                       </div>
                     </td>
@@ -230,11 +246,11 @@ const DeviceTypes = () => {
       ))}
 
       {/* Information */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           About Device Types
         </h3>
-        <div className="text-gray-600 space-y-3">
+        <div className="text-gray-600 dark:text-gray-300 space-y-3">
           <p>
             Device Types define the hardware configuration and capabilities of
             your simulator devices. Each device type includes:

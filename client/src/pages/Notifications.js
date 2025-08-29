@@ -135,10 +135,10 @@ const Notifications = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Push Notifications
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
             Send push notifications to your simulator devices
           </p>
         </div>
@@ -156,15 +156,15 @@ const Notifications = () => {
         <div
           className={`p-4 rounded-lg ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-200"
-              : "bg-red-100 text-red-800 border border-red-200"
+              ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-700"
+              : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-700"
           }`}
         >
           <div className="flex justify-between items-center">
             <span>{message.text}</span>
             <button
               onClick={clearMessage}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
             >
               <XCircle className="h-4 w-4" />
             </button>
@@ -173,19 +173,19 @@ const Notifications = () => {
       )}
 
       {/* Device Selection */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Select Target Device
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Device
             </label>
             <select
               value={selectedDevice}
               onChange={(e) => setSelectedDevice(e.target.value)}
-              className="input-field"
+              className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
             >
               <option value="">Select a device</option>
               {devices.map((device) => (
@@ -196,8 +196,8 @@ const Notifications = () => {
             </select>
           </div>
           <div className="flex items-center">
-            <Smartphone className="h-5 w-5 text-blue-600 mr-2" />
-            <span className="text-sm text-gray-600">
+            <Smartphone className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
+            <span className="text-sm text-gray-600 dark:text-gray-300">
               {devices.find((d) => d.id === selectedDevice)?.name ||
                 "No device selected"}
             </span>
@@ -206,14 +206,14 @@ const Notifications = () => {
       </div>
 
       {/* Notification Form */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Notification Details
         </h2>
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Title *
               </label>
               <input
@@ -225,12 +225,12 @@ const Notifications = () => {
                     title: e.target.value,
                   })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 placeholder="Notification title"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Bundle ID *
               </label>
               <input
@@ -242,14 +242,14 @@ const Notifications = () => {
                     bundleId: e.target.value,
                   })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 placeholder="com.example.app"
               />
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Badge Number
               </label>
               <input
@@ -261,12 +261,12 @@ const Notifications = () => {
                     badge: e.target.value,
                   })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 placeholder="Badge count"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Sound
               </label>
               <select
@@ -277,7 +277,7 @@ const Notifications = () => {
                     sound: e.target.value,
                   })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
               >
                 <option value="default">Default</option>
                 <option value="none">None</option>
@@ -287,7 +287,7 @@ const Notifications = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Body *
             </label>
             <textarea
@@ -298,7 +298,7 @@ const Notifications = () => {
                   body: e.target.value,
                 })
               }
-              className="input-field"
+              className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
               rows={3}
               placeholder="Notification message"
             />
@@ -306,7 +306,7 @@ const Notifications = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Sound
               </label>
               <select
@@ -317,7 +317,7 @@ const Notifications = () => {
                     sound: e.target.value,
                   })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
               >
                 <option value="default">Default</option>
                 <option value="none">None</option>
@@ -325,7 +325,7 @@ const Notifications = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Category
               </label>
               <input
@@ -337,12 +337,12 @@ const Notifications = () => {
                     category: e.target.value,
                   })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 placeholder="Notification category"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 User Info (JSON)
               </label>
               <input
@@ -354,7 +354,7 @@ const Notifications = () => {
                     userInfo: e.target.value,
                   })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 placeholder='{"key": "value"}'
               />
             </div>
@@ -389,8 +389,8 @@ const Notifications = () => {
       </div>
 
       {/* Quick Notification Templates */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Quick Templates
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -445,11 +445,11 @@ const Notifications = () => {
       </div>
 
       {/* Information */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Push Notification Guide
         </h3>
-        <div className="text-gray-600 space-y-3">
+        <div className="text-gray-600 dark:text-gray-300 space-y-3">
           <p>
             Send push notifications to your iOS Simulator devices to test
             notification handling:

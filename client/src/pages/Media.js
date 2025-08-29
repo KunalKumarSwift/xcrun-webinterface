@@ -26,6 +26,7 @@ const Media = () => {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState({});
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [isDragActive, setIsDragActive] = useState(false);
 
   const parseDevices = (data) => {
     const lines = data.split("\n");
@@ -187,8 +188,10 @@ const Media = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Media Management</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Media Management
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
             Manage photos, videos, and other media on your simulator devices
           </p>
         </div>
@@ -206,15 +209,15 @@ const Media = () => {
         <div
           className={`p-4 rounded-lg ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-200"
-              : "bg-red-100 text-red-800 border border-red-200"
+              ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-700"
+              : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-700"
           }`}
         >
           <div className="flex justify-between items-center">
             <span>{message.text}</span>
             <button
               onClick={clearMessage}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
             >
               <XCircle className="h-4 w-4" />
             </button>
@@ -223,13 +226,13 @@ const Media = () => {
       )}
 
       {/* Device Selection */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Select Target Device
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Device
             </label>
             <select
@@ -240,7 +243,7 @@ const Media = () => {
                   fetchMediaFiles();
                 }
               }}
-              className="input-field"
+              className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
             >
               <option value="">Select a device</option>
               {devices.map((device) => (
@@ -251,8 +254,8 @@ const Media = () => {
             </select>
           </div>
           <div className="flex items-center">
-            <Smartphone className="h-5 w-5 text-blue-600 mr-2" />
-            <span className="text-sm text-gray-600">
+            <Smartphone className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
+            <span className="text-sm text-gray-600 dark:text-gray-300">
               {devices.find((d) => d.id === selectedDevice)?.name ||
                 "No device selected"}
             </span>
@@ -261,14 +264,14 @@ const Media = () => {
       </div>
 
       {/* Upload Media */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Upload Media
         </h2>
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Media Type
               </label>
               <select
@@ -276,7 +279,7 @@ const Media = () => {
                 onChange={(e) =>
                   setUploadForm({ ...uploadForm, mediaType: e.target.value })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
               >
                 <option value="photo">Photo</option>
                 <option value="video">Video</option>
@@ -284,7 +287,7 @@ const Media = () => {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 Album
               </label>
               <input
@@ -293,27 +296,72 @@ const Media = () => {
                 onChange={(e) =>
                   setUploadForm({ ...uploadForm, album: e.target.value })
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 placeholder="Camera Roll"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                 File Path
               </label>
+              <div
+                className={`relative border-2 border-dashed rounded-lg p-4 transition-colors duration-200 cursor-pointer ${
+                  isDragActive
+                    ? "border-primary-600 bg-primary-50 dark:bg-primary-900"
+                    : "border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+                }`}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setIsDragActive(true);
+                }}
+                onDragLeave={(e) => {
+                  e.preventDefault();
+                  setIsDragActive(false);
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  setIsDragActive(false);
+                  const file = e.dataTransfer.files[0];
+                  if (file && file.path) {
+                    setUploadForm((f) => ({ ...f, filePath: file.path }));
+                  }
+                }}
+                onClick={() => {
+                  document.getElementById("media-file-input").click();
+                }}
+              >
+                <input
+                  id="media-file-input"
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    const file = e.target.files[0];
+                    if (file && file.path) {
+                      setUploadForm((f) => ({ ...f, filePath: file.path }));
+                    }
+                  }}
+                />
+                <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
+                  Drag & drop your file here, or click to select
+                </p>
+                {uploadForm.filePath && (
+                  <p className="mt-2 text-xs text-primary-600 dark:text-primary-300 break-all text-center">
+                    Selected: {uploadForm.filePath}
+                  </p>
+                )}
+              </div>
               <input
                 type="text"
                 value={uploadForm.filePath}
                 onChange={(e) =>
-                  setUploadForm({ ...uploadForm, filePath: e.target.value })
+                  setUploadForm((f) => ({ ...f, filePath: e.target.value }))
                 }
-                className="input-field"
+                className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 mt-2"
                 placeholder="/path/to/media/file"
               />
             </div>
           </div>
         </div>
-
         <div className="mt-6">
           <button
             onClick={handleUploadMedia}
@@ -339,9 +387,9 @@ const Media = () => {
 
       {/* Media Library */}
       {selectedDevice && (
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
               Media Library
             </h2>
             <button onClick={fetchMediaFiles} className="btn-secondary text-sm">
@@ -351,8 +399,8 @@ const Media = () => {
           </div>
 
           {mediaFiles.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <Folder className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <Folder className="h-12 w-12 mx-auto mb-4 text-gray-300 dark:text-gray-700" />
               <p>No media files found on this device</p>
               <p className="text-sm">Upload some media to get started</p>
             </div>
@@ -361,12 +409,12 @@ const Media = () => {
               {mediaFiles.map((media) => (
                 <div
                   key={media.id}
-                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-900"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center">
                       {getMediaIcon(media.type)}
-                      <span className="ml-2 text-sm font-medium text-gray-900">
+                      <span className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
                         {media.name}
                       </span>
                     </div>
@@ -379,7 +427,7 @@ const Media = () => {
                     </button>
                   </div>
 
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
                     <div className="flex justify-between">
                       <span>Type:</span>
                       <span className="capitalize">{media.type}</span>
@@ -405,8 +453,8 @@ const Media = () => {
       )}
 
       {/* Quick Upload Templates */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Quick Upload Templates
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -456,11 +504,11 @@ const Media = () => {
       </div>
 
       {/* Information */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Media Management Guide
         </h3>
-        <div className="text-gray-600 space-y-3">
+        <div className="text-gray-600 dark:text-gray-300 space-y-3">
           <p>Manage media files on your iOS Simulator devices:</p>
           <ul className="list-disc list-inside space-y-1 ml-4">
             <li>

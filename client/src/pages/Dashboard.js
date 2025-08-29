@@ -127,10 +127,10 @@ const Dashboard = () => {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           xcrun Simctl Dashboard
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
           Manage your iOS Simulator devices, runtimes, and applications through
           a modern web interface. Use the navigation above to access different
           management features.
@@ -139,60 +139,64 @@ const Dashboard = () => {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100">
-              <Smartphone className="h-6 w-6 text-blue-600" />
+            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
+              <Smartphone className="h-6 w-6 text-blue-600 dark:text-blue-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Devices</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                Total Devices
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {stats.devices}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-green-100">
-              <Play className="h-6 w-6 text-green-600" />
+            <div className="p-3 rounded-full bg-green-100 dark:bg-green-900">
+              <Play className="h-6 w-6 text-green-600 dark:text-green-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                 Running Devices
               </p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {stats.runningDevices}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-purple-100">
-              <Clock className="h-6 w-6 text-purple-600" />
+            <div className="p-3 rounded-full bg-purple-100 dark:bg-purple-900">
+              <Clock className="h-6 w-6 text-purple-600 dark:text-purple-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
                 Available Runtimes
               </p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {stats.runtimes}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-orange-100">
-              <Settings className="h-6 w-6 text-orange-600" />
+            <div className="p-3 rounded-full bg-orange-100 dark:bg-orange-900">
+              <Settings className="h-6 w-6 text-orange-600 dark:text-orange-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Device Types</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                Device Types
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {stats.deviceTypes}
               </p>
             </div>
@@ -202,27 +206,33 @@ const Dashboard = () => {
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+          Quick Actions
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {quickActions.map((action, index) => {
             const Icon = action.icon;
             return (
               <div
                 key={index}
-                className="card hover:shadow-lg transition-shadow duration-200"
+                className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow duration-200"
               >
                 <div className="flex items-center mb-4">
-                  <div className={`p-3 rounded-full ${action.color}`}>
+                  <div
+                    className={`p-3 rounded-full ${action.color} dark:opacity-80`}
+                  >
                     <Icon className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="ml-3 text-lg font-semibold text-gray-900">
+                  <h3 className="ml-3 text-lg font-semibold text-gray-900 dark:text-gray-100">
                     {action.title}
                   </h3>
                 </div>
-                <p className="text-gray-600 mb-4">{action.description}</p>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  {action.description}
+                </p>
                 <a
                   href={action.href}
-                  className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium"
+                  className="inline-flex items-center text-primary-600 dark:text-primary-300 hover:text-primary-700 dark:hover:text-primary-200 font-medium"
                 >
                   Go to {action.title.split(" ")[0]}
                   <svg
@@ -247,15 +257,15 @@ const Dashboard = () => {
 
       {/* Features Overview */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
           Features Overview
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="card">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+          <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Device Management
             </h3>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li>• Create, delete, and manage simulator devices</li>
               <li>• Boot and shutdown devices</li>
               <li>• Reset device content and settings</li>
@@ -263,11 +273,11 @@ const Dashboard = () => {
             </ul>
           </div>
 
-          <div className="card">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+          <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               App Management
             </h3>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li>• Install and uninstall applications</li>
               <li>• Launch and terminate apps</li>
               <li>• Manage app bundles and identifiers</li>
@@ -275,11 +285,11 @@ const Dashboard = () => {
             </ul>
           </div>
 
-          <div className="card">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+          <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Runtime & Device Types
             </h3>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li>• View available iOS runtimes</li>
               <li>• Browse device type configurations</li>
               <li>• Create devices with specific configurations</li>
@@ -287,11 +297,11 @@ const Dashboard = () => {
             </ul>
           </div>
 
-          <div className="card">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+          <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+            <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
               Advanced Features
             </h3>
-            <ul className="space-y-2 text-gray-600">
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li>• Real-time device monitoring</li>
               <li>• Batch operations support</li>
               <li>• Command history and logging</li>

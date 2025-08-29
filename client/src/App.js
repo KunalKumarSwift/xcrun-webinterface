@@ -14,9 +14,9 @@ import Recording from "./pages/Recording";
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex">
         <Navigation />
-        <main className="container mx-auto px-4 py-8">
+        <main className="flex-1 ml-64 px-8 py-8 text-gray-900 dark:text-gray-100">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/devices" element={<Devices />} />

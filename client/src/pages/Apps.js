@@ -17,6 +17,7 @@ const Apps = () => {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState({});
   const [message, setMessage] = useState({ type: "", text: "" });
+  const [isDragActive, setIsDragActive] = useState(false);
 
   useEffect(() => {
     fetchDevices();
@@ -212,8 +213,10 @@ const Apps = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">App Management</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            App Management
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
             Install, launch, and manage apps on your simulator devices
           </p>
         </div>
@@ -231,8 +234,8 @@ const Apps = () => {
         <div
           className={`p-4 rounded-lg ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-200"
-              : "bg-red-100 text-red-800 border border-red-200"
+              ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-700"
+              : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-700"
           }`}
         >
           <div className="flex justify-between items-center">
@@ -248,19 +251,19 @@ const Apps = () => {
       )}
 
       {/* Device Selection */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Select Device
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Choose Device
             </label>
             <select
               value={selectedDevice}
               onChange={(e) => setSelectedDevice(e.target.value)}
-              className="input-field"
+              className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
             >
               <option value="">Select a device</option>
               {devices.map((device) => (
@@ -272,8 +275,8 @@ const Apps = () => {
           </div>
           {selectedDevice && (
             <div className="flex items-center">
-              <Smartphone className="h-5 w-5 text-blue-600 mr-2" />
-              <span className="text-sm text-gray-600">
+              <Smartphone className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
+              <span className="text-sm text-gray-600 dark:text-gray-300">
                 {devices.find((d) => d.id === selectedDevice)?.name}
               </span>
             </div>
@@ -282,24 +285,73 @@ const Apps = () => {
       </div>
 
       {/* App Installation */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-          <Download className="h-5 w-5 text-green-600 mr-2" />
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <Download className="h-5 w-5 text-green-600 dark:text-green-400 mr-2" />
           Install App
         </h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               App Path (.app file)
             </label>
+            <div
+              className={`relative border-2 border-dashed rounded-lg p-4 transition-colors duration-200 cursor-pointer ${
+                isDragActive
+                  ? "border-primary-600 bg-primary-50 dark:bg-primary-900"
+                  : "border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800"
+              }`}
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragActive(true);
+              }}
+              onDragLeave={(e) => {
+                e.preventDefault();
+                setIsDragActive(false);
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                setIsDragActive(false);
+                const file = e.dataTransfer.files[0];
+                if (file && file.path && file.name.endsWith(".app")) {
+                  setAppPath(file.path);
+                }
+              }}
+              onClick={() => {
+                // fallback to file input
+                document.getElementById("app-file-input").click();
+              }}
+            >
+              <input
+                id="app-file-input"
+                type="file"
+                accept=".app"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  const file = e.target.files[0];
+                  if (file && file.path) {
+                    setAppPath(file.path);
+                  }
+                }}
+              />
+              <p className="text-center text-gray-500 dark:text-gray-400 text-sm">
+                Drag & drop your <span className="font-semibold">.app</span>{" "}
+                file here, or click to select
+              </p>
+              {appPath && (
+                <p className="mt-2 text-xs text-primary-600 dark:text-primary-300 break-all text-center">
+                  Selected: {appPath}
+                </p>
+              )}
+            </div>
             <input
               type="text"
               value={appPath}
               onChange={(e) => setAppPath(e.target.value)}
-              className="input-field"
+              className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 mt-2"
               placeholder="/path/to/your/app.app"
             />
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Provide the full path to your .app file
             </p>
           </div>
@@ -314,24 +366,24 @@ const Apps = () => {
       </div>
 
       {/* App Management */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center">
-          <Package className="h-5 w-5 text-blue-600 mr-2" />
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center">
+          <Package className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
           App Management
         </h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Bundle Identifier
             </label>
             <input
               type="text"
               value={bundleId}
               onChange={(e) => setBundleId(e.target.value)}
-              className="input-field"
+              className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
               placeholder="com.example.app"
             />
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Enter the bundle identifier of the app (e.g., com.apple.Safari)
             </p>
           </div>
@@ -365,35 +417,43 @@ const Apps = () => {
       </div>
 
       {/* Common Bundle IDs */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Common System Apps
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <h4 className="font-medium text-gray-800">iOS Apps</h4>
+            <h4 className="font-medium text-gray-800 dark:text-gray-200">
+              iOS Apps
+            </h4>
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Safari:</span>
-                <code className="text-primary-600 font-mono">
+                <span className="text-gray-600 dark:text-gray-300">
+                  Safari:
+                </span>
+                <code className="text-primary-600 dark:text-primary-300 font-mono">
                   com.apple.Safari
                 </code>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Settings:</span>
-                <code className="text-primary-600 font-mono">
+                <span className="text-gray-600 dark:text-gray-300">
+                  Settings:
+                </span>
+                <code className="text-primary-600 dark:text-primary-300 font-mono">
                   com.apple.Preferences
                 </code>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Messages:</span>
-                <code className="text-primary-600 font-mono">
+                <span className="text-gray-600 dark:text-gray-300">
+                  Messages:
+                </span>
+                <code className="text-primary-600 dark:text-primary-300 font-mono">
                   com.apple.MobileSMS
                 </code>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Mail:</span>
-                <code className="text-primary-600 font-mono">
+                <span className="text-gray-600 dark:text-gray-300">Mail:</span>
+                <code className="text-primary-600 dark:text-primary-300 font-mono">
                   com.apple.mobilemail
                 </code>
               </div>
@@ -401,17 +461,21 @@ const Apps = () => {
           </div>
 
           <div className="space-y-2">
-            <h4 className="font-medium text-gray-800">Development</h4>
+            <h4 className="font-medium text-gray-800 dark:text-gray-200">
+              Development
+            </h4>
             <div className="space-y-1 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Xcode:</span>
-                <code className="text-primary-600 font-mono">
+                <span className="text-gray-600 dark:text-gray-300">Xcode:</span>
+                <code className="text-primary-600 dark:text-primary-300 font-mono">
                   com.apple.dt.Xcode
                 </code>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Simulator:</span>
-                <code className="text-primary-600 font-mono">
+                <span className="text-gray-600 dark:text-gray-300">
+                  Simulator:
+                </span>
+                <code className="text-primary-600 dark:text-primary-300 font-mono">
                   com.apple.iphonesimulator
                 </code>
               </div>
@@ -421,11 +485,11 @@ const Apps = () => {
       </div>
 
       {/* Information */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           App Management Guide
         </h3>
-        <div className="text-gray-600 space-y-3">
+        <div className="text-gray-600 dark:text-gray-300 space-y-3">
           <p>
             Use this interface to manage applications on your iOS Simulator
             devices:

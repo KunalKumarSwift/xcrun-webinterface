@@ -202,8 +202,10 @@ const Recording = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Screen Recording</h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Screen Recording
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
             Record videos of your simulator screens for demos and testing
           </p>
         </div>
@@ -221,15 +223,15 @@ const Recording = () => {
         <div
           className={`p-4 rounded-lg ${
             message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-200"
-              : "bg-red-100 text-red-800 border border-red-200"
+              ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-700"
+              : "bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-700"
           }`}
         >
           <div className="flex justify-between items-center">
             <span>{message.text}</span>
             <button
               onClick={clearMessage}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100"
             >
               <XCircle className="h-4 w-4" />
             </button>
@@ -238,13 +240,13 @@ const Recording = () => {
       )}
 
       {/* Device Selection */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Select Target Device
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Device
             </label>
             <select
@@ -255,7 +257,7 @@ const Recording = () => {
                   fetchRecordings();
                 }
               }}
-              className="input-field"
+              className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
             >
               <option value="">Select a device</option>
               {devices.map((device) => (
@@ -266,8 +268,8 @@ const Recording = () => {
             </select>
           </div>
           <div className="flex items-center">
-            <Smartphone className="h-5 w-5 text-blue-600 mr-2" />
-            <span className="text-sm text-gray-600">
+            <Smartphone className="h-5 w-5 text-blue-600 dark:text-blue-400 mr-2" />
+            <span className="text-sm text-gray-600 dark:text-gray-300">
               {devices.find((d) => d.id === selectedDevice)?.name ||
                 "No device selected"}
             </span>
@@ -276,8 +278,8 @@ const Recording = () => {
       </div>
 
       {/* Recording Controls */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Recording Controls
         </h2>
 
@@ -285,7 +287,7 @@ const Recording = () => {
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Quality
                 </label>
                 <select
@@ -296,7 +298,7 @@ const Recording = () => {
                       quality: e.target.value,
                     })
                   }
-                  className="input-field"
+                  className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 >
                   <option value="low">Low (480p)</option>
                   <option value="medium">Medium (720p)</option>
@@ -305,7 +307,7 @@ const Recording = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Duration (seconds)
                 </label>
                 <input
@@ -317,14 +319,14 @@ const Recording = () => {
                       duration: e.target.value,
                     })
                   }
-                  className="input-field"
+                  className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                   placeholder="30"
                   min="5"
                   max="300"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                   Output Path
                 </label>
                 <input
@@ -336,7 +338,7 @@ const Recording = () => {
                       outputPath: e.target.value,
                     })
                   }
-                  className="input-field"
+                  className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                   placeholder="~/Desktop/recording.mp4"
                 />
               </div>
@@ -354,11 +356,11 @@ const Recording = () => {
                       includeAudio: e.target.checked,
                     })
                   }
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-700 rounded"
                 />
                 <label
                   htmlFor="includeAudio"
-                  className="ml-2 text-sm text-gray-700"
+                  className="ml-2 text-sm text-gray-700 dark:text-gray-300"
                 >
                   Include Audio
                 </label>
@@ -374,11 +376,11 @@ const Recording = () => {
                       showTouches: e.target.checked,
                     })
                   }
-                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                  className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-700 rounded"
                 />
                 <label
                   htmlFor="showTouches"
-                  className="ml-2 text-sm text-gray-700"
+                  className="ml-2 text-sm text-gray-700 dark:text-gray-300"
                 >
                   Show Touch Indicators
                 </label>
@@ -409,11 +411,11 @@ const Recording = () => {
           <div className="text-center py-8">
             <div className="flex items-center justify-center mb-4">
               <div className="w-4 h-4 bg-red-500 rounded-full animate-pulse mr-3"></div>
-              <span className="text-lg font-semibold text-red-600">
+              <span className="text-lg font-semibold text-red-600 dark:text-red-400">
                 Recording in Progress...
               </span>
             </div>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
               Recording device:{" "}
               {devices.find((d) => d.id === selectedDevice)?.name}
             </p>
@@ -440,9 +442,9 @@ const Recording = () => {
 
       {/* Recordings Library */}
       {selectedDevice && (
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
               Recordings Library
             </h2>
             <button onClick={fetchRecordings} className="btn-secondary text-sm">
@@ -452,8 +454,8 @@ const Recording = () => {
           </div>
 
           {recordings.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
-              <FileVideo className="h-12 w-12 mx-auto mb-4 text-gray-300" />
+            <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+              <FileVideo className="h-12 w-12 mx-auto mb-4 text-gray-300 dark:text-gray-700" />
               <p>No recordings found on this device</p>
               <p className="text-sm">
                 Start recording to create your first video
@@ -464,12 +466,12 @@ const Recording = () => {
               {recordings.map((recording) => (
                 <div
                   key={recording.id}
-                  className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                  className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow bg-white dark:bg-gray-900"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center">
-                      <FileVideo className="h-5 w-5 text-purple-600 mr-2" />
-                      <span className="text-sm font-medium text-gray-900">
+                      <FileVideo className="h-5 w-5 text-purple-600 dark:text-purple-300 mr-2" />
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                         {recording.name || `Recording ${recording.id}`}
                       </span>
                     </div>
@@ -485,7 +487,7 @@ const Recording = () => {
                     </div>
                   </div>
 
-                  <div className="space-y-2 text-sm text-gray-600">
+                  <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
                     <div className="flex justify-between">
                       <span>Quality:</span>
                       <span className="capitalize">{recording.quality}</span>
@@ -528,8 +530,8 @@ const Recording = () => {
       )}
 
       {/* Quick Recording Templates */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Quick Recording Templates
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -582,11 +584,11 @@ const Recording = () => {
       </div>
 
       {/* Information */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Screen Recording Guide
         </h3>
-        <div className="text-gray-600 space-y-3">
+        <div className="text-gray-600 dark:text-gray-300 space-y-3">
           <p>Record high-quality videos of your iOS Simulator screens:</p>
           <ul className="list-disc list-inside space-y-1 ml-4">
             <li>

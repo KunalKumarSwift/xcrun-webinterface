@@ -180,10 +180,10 @@ const Devices = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Device Management
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 dark:text-gray-300 mt-2">
             Manage your iOS Simulator devices
           </p>
         </div>
@@ -207,40 +207,46 @@ const Devices = () => {
 
       {/* Device Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-blue-100">
-              <Smartphone className="h-6 w-6 text-blue-600" />
+            <div className="p-3 rounded-full bg-blue-100 dark:bg-blue-900">
+              <Smartphone className="h-6 w-6 text-blue-600 dark:text-blue-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Devices</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                Total Devices
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {devices.length}
               </p>
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-green-100">
-              <Play className="h-6 w-6 text-green-600" />
+            <div className="p-3 rounded-full bg-green-100 dark:bg-green-900">
+              <Play className="h-6 w-6 text-green-600 dark:text-green-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Running</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                Running
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {devices.filter((d) => d.isBooted).length}
               </p>
             </div>
           </div>
         </div>
-        <div className="card">
+        <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center">
-            <div className="p-3 rounded-full bg-gray-100">
-              <Square className="h-6 w-6 text-gray-600" />
+            <div className="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
+              <Square className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Shutdown</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                Shutdown
+              </p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 {devices.filter((d) => !d.isBooted).length}
               </p>
             </div>
@@ -249,38 +255,41 @@ const Devices = () => {
       </div>
 
       {/* Devices Table */}
-      <div className="card">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+      <div className="card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Available Devices
         </h2>
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead className="bg-gray-50 dark:bg-gray-800">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Device Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   ID
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
               {devices.map((device) => (
-                <tr key={device.id} className="hover:bg-gray-50">
+                <tr
+                  key={device.id}
+                  className="hover:bg-gray-50 dark:hover:bg-gray-800"
+                >
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900">
+                    <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {device.name}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500 font-mono">
+                    <div className="text-sm text-gray-500 dark:text-gray-300 font-mono">
                       {device.id}
                     </div>
                   </td>
@@ -288,8 +297,8 @@ const Devices = () => {
                     <span
                       className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                         device.isBooted
-                          ? "bg-green-100 text-green-800"
-                          : "bg-gray-100 text-gray-800"
+                          ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200"
+                          : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200"
                       }`}
                     >
                       {device.status}
@@ -373,15 +382,15 @@ const Devices = () => {
       {/* Create Device Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700">
             <div className="mt-3">
-              <h3 className="text-lg font-medium text-gray-900 mb-4">
+              <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-4">
                 Create New Device
               </h3>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Device Name
                   </label>
                   <input
@@ -390,13 +399,13 @@ const Devices = () => {
                     onChange={(e) =>
                       setCreateForm({ ...createForm, name: e.target.value })
                     }
-                    className="input-field"
+                    className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                     placeholder="e.g., iPhone 15 Pro"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Device Type
                   </label>
                   <select
@@ -407,7 +416,7 @@ const Devices = () => {
                         deviceTypeId: e.target.value,
                       })
                     }
-                    className="input-field"
+                    className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                   >
                     <option value="">Select Device Type</option>
                     {deviceTypes.map((type) => (
@@ -419,7 +428,7 @@ const Devices = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Runtime
                   </label>
                   <select
@@ -430,7 +439,7 @@ const Devices = () => {
                         runtimeId: e.target.value,
                       })
                     }
-                    className="input-field"
+                    className="input-field dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                   >
                     <option value="">Select Runtime</option>
                     {runtimes.map((runtime) => (
