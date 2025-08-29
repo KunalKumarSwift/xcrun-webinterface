@@ -1,4 +1,5 @@
 # xcrun Simctl Web Interface
+<img width="1552" height="934" alt="Screenshot 2025-08-29 at 1 49 02 AM" src="https://github.com/user-attachments/assets/460c17ab-b23b-450b-b1ba-3ee20898ac7a" />
 
 A modern web interface for managing iOS Simulator devices using `xcrun simctl` commands. Built with Node.js, Express, React, and Tailwind CSS.
 
