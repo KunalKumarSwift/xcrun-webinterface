@@ -1,10 +1,11 @@
 const { contextBridge, ipcRenderer } = require("electron");
 const SERVER_URL =
   process.env.NODE_ENV === "development"
-    ? "http://localhost:3000" // Your Express server
+    ? "http://localhost:3001" // Your Express server
     : "http://localhost:3001"; // Same in production (you already use 3001)
 // Expose protected methods that allow the renderer process to use
 // the ipcRenderer without exposing the entire object
+
 contextBridge.exposeInMainWorld("electronAPI", {
   // Platform detection
   platform: process.platform,

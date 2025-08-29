@@ -12,9 +12,9 @@ function createWindow() {
     minWidth: 800,
     minHeight: 600,
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true,
-      enableRemoteModule: false,
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
       preload: path.join(__dirname, "preload.js"),
     },
     icon: path.join(__dirname, "assets/icon.png"), // You can add an icon later
@@ -36,6 +36,9 @@ function createWindow() {
   // Show window when ready
   mainWindow.once("ready-to-show", () => {
     mainWindow.show();
+    console.log("Node version:", process.version);
+    console.log("Node executable:", process.execPath);
+    console.log("Platform:", process.platform);
   });
 
   // Handle window closed
